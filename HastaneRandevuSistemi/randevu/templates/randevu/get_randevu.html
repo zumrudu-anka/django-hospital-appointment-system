@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Randevu</title>
+</head>
+<body>
+	<h1>Randevu Al</h1>
+	<form method="POST">{% csrf_token %}
+		{{ form.as_p }}
+	<button type="submit"> Giriş </button>
+	</form>
+</body>
+</html>
