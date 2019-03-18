@@ -18,7 +18,7 @@
 		<h3 class="name">{{patient.patient_name}} {{patient.patient_surname}}</h3>
 		</div>
 		<ul class="options">
-			<li><button class="randevu" onclick="window.location.href='sign-in.html'" >Randevu Al</button></li>
+			<li><button class="randevu" onclick="window.location.href='{% url 'randevu:get_appointment' %}'" >Randevu Al</button></li>
 			<li><button class="history">Randevu Geçmişi</button></li>
 			<li><button class="pass">Şifre Değiştir</button></li>
 			<li><button class="exit" onclick="window.location.href='{% url 'randevu:logout_view' %}'">Çıkış</button></li>

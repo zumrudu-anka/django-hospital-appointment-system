@@ -26,6 +26,11 @@ class SigninForm(forms.ModelForm):
 		'patient_date_of_birth','gender_of_patient','password_of_patient'
 		]
 
+	def __init__(self,*args,**kwargs):
+		super(SigninForm, self).__init__(*args,**kwargs)
+		CHOICES=[('Bay','Bay'),('Bayan','Bayan')]
+		self.fields['gender_of_patient'].widget = forms.widgets.RadioSelect(choices=CHOICES)
+
 class GetAppointmentForm(forms.ModelForm):
 	class Meta:
 		model=Appointments
