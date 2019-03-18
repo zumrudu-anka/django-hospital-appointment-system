@@ -1,0 +1,114 @@
+*{
+	
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Roboto Condensed', sans-serif;	
+}
+body{
+	
+	background-color: #ffddcc;
+	background: url(../img/diamond_upholstery.png) repeat center center; 
+	
+}
+.container{
+	
+	width: 1000px;
+	margin: 0 auto;
+	
+}
+.icons{
+	margin: 100px auto 0px auto;
+	text-align: center;
+	width: 150px;
+}
+.icons i{
+	margin-bottom: 5px;
+	color: #535353;
+	display: block;
+}
+.tint{
+	
+	margin-left: 60px;
+	
+}
+h1{
+	font-size: 24px;
+	color: #535353;
+	text-align: center;
+	
+	
+}
+.login{
+
+	background: url(../img/subtle_white_feathers.png) repeat center center; 
+	width: 50%;
+	margin: 0px auto;
+	padding: 10px;
+	box-shadow: 7px 12px 20px rgba(211, 211, 211, 0.43137254901960786);
+}
+form{	
+	padding: 10px;
+	border-radius: 15px;
+	
+}
+form span{
+	
+	font-size: 14px;
+	opacity: 0.8;
+}
+input{
+	
+	padding: 10px;
+	margin: 0px 0px;
+	margin-top: 5px;
+	border: 1px solid #f2f2f2;
+	border-radius: 15px;
+	background-color: white;
+	
+}
+
+#benihatirla{
+	display: inline-block;
+	margin: 10px 1px;
+	margin-left: 10px;
+}
+#tckimlik,#sifre{
+	
+	display: block;
+	width: 95%;
+	border: 1px solid #535353;
+}
+#uyeol{
+	display: block;
+	border: 1px solid  #f2f2f2;
+	color: white;
+	width: 100%;
+	background-color: #0086EE;
+}
+#uyeol:hover ,#giris:hover, a:hover{
+	
+	opacity: 0.9;
+	cursor: pointer;
+	
+	
+}
+#uyeol:active ,#giris:active{
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 1),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+a{
+	
+	text-decoration: none;
+	float: right;
+	margin-top: 10px;
+	font-size: 12px;
+}
+
+
+#giris{
+	display: block;
+	background-color: #00aa00	;
+	border: 1px solid  #f2f2f2;
+	color: white;
+	width: 100%;
+}

@@ -16,19 +16,7 @@ class LoginForm(forms.Form):
 		return super(LoginForm,self).clean()
 
 class SigninForm(forms.ModelForm):
-	"""tcno=forms.CharField()
-	name=forms.CharField()
-	surname=forms.CharField()
-	bloodgroup=forms.CharField()
-	mothername=forms.CharField()
-	fathername=forms.CharField()
-	telephone=forms.CharField()
-	e_mail=forms.CharField()
-	birthdate=forms.DateField()
-	birthplace=forms.CharField()
-	gender=forms.CharField()
-	password=forms.CharField()"""
-
+	
 	class Meta:
 		model=Patients
 		fields=[

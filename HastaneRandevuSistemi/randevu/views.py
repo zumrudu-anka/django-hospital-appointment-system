@@ -6,7 +6,8 @@ from .forms import *
 from .urls import *
 
 def homepage_view(request):
-	return render(request,'randevu/anasayfa.html',{})
+	patient=Patients.objects.get(patient_tc_no=request.user.username)
+	return render(request,'randevu/anasayfa.html',{'patient':patient})
 
 def login_view(request):
 	form=LoginForm(request.POST or None)
@@ -15,8 +16,13 @@ def login_view(request):
 		password=form.cleaned_data.get('password')
 		user=authenticate(username=username,password=password)
 		login(request,user)
-		return render(request,'randevu/anasayfa.html',{})
+		patient=Patients.objects.get(patient_tc_no=user.username)
+		return redirect('/')
 	return render(request,'randevu/login.html',{'form':form})
+
+def logout_view(request):
+	logout(request)
+	return redirect('/login/')
 
 def sign_in_view(request):
 	form=SigninForm(request.POST or None)
@@ -53,6 +59,5 @@ def get_appointment(request):
 		Appointments.objects.create(date_of_appointment=date,dr_of_appointment=dr,patient_of_appointment=patient,begin_time_of_appointment=begin_time,end_time_of_appointment=end_time)
 		return render(request,'randevu/anasayfa.html',{})
 	return render(request,'randevu/get_randevu.html',{'form':form})
-	#print(user.id)
 
 

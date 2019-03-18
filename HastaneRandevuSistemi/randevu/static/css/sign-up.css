@@ -1,0 +1,96 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Roboto Condensed', sans-serif;	
+	
+}
+body{
+	
+background-color: aquamarine;
+	background: url(../img/diamond_upholstery.png) repeat center center; 
+
+
+}
+h1{	
+font-size: 20px;
+	color: #535353;
+	text-align: center;
+	font-family: 'Laila',serif !important;
+}
+.container{
+	
+	width: 1000px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+.sign-up{
+		background: url(../img/subtle_white_feathers.png) repeat center center;
+  margin:10px auto 50px auto;
+	width: 50%;
+	box-shadow: 7px 12px 20px rgba(211, 211, 211, 0.43137254901960786);
+	padding: 10px;
+}
+form{
+	    padding: 10px;
+	
+}
+.textbox{
+	width: 95%;
+	display: inline-block;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 15px;
+	border: 1px solid #535353;
+	background-color: white;
+outline: none;
+}
+::placeholder{ 
+  color: black;
+  opacity: 1; 
+}
+.check{
+	margin-top: 5px;
+	
+}
+.check div{
+	display: inline-block;
+	margin-left: 10px;
+	outline: none;
+}
+#cevap{
+	width: 260px;
+	display: inline-block;
+}
+.cns{
+	float: right;
+	line-height: 22px;
+	margin-left: 5px;
+}
+select{
+	
+	width: 40%;
+	display: inline-block;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 15px;
+	border: 1px solid #535353;
+	background-color: white;
+	outline: none;
+}
+.kaydol-button{
+	outline: none;
+	width: 100%;
+	display: block;
+	padding: 10px;
+	margin-top: 50px;
+	border-radius: 15px;
+	border: 1px solid #f2f2f2 !important;
+	background-color: #00aa00 !important;
+	color: white !important;
+	
+}
+.kaydol-button:active{
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 1),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
