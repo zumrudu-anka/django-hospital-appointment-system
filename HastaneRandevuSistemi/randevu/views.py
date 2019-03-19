@@ -5,15 +5,8 @@ from .models import *
 from .forms import *
 from .urls import *
 
+
 def homepage_view(request):
-	return render(request,'randevu/anasayfa.html',{})
-
-def profilepage_view(request):
-	patient=Patients.objects.get(patient_tc_no=request.user.username)
-	appoints=Appointments.objects.filter(patient_of_appointment=patient)
-	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints})
-
-def login_view(request):
 	form=LoginForm(request.POST or None)
 	if form.is_valid():
 		username=form.cleaned_data.get('username')
@@ -21,12 +14,17 @@ def login_view(request):
 		user=authenticate(username=username,password=password)
 		login(request,user)
 		patient=Patients.objects.get(patient_tc_no=user.username)
-		return render(request,'randevu/profile.html',{})
+		return redirect('randevu:profilepage')
 	return render(request,'randevu/login.html',{'form':form})
+
+def profilepage_view(request):
+	patient=Patients.objects.get(patient_tc_no=request.user.username)
+	appoints=Appointments.objects.filter(patient_of_appointment=patient)
+	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints})
 
 def logout_view(request):
 	logout(request)
-	return redirect('randevu:login_view')
+	return redirect('randevu:homepage')
 
 def sign_in_view(request):
 	form = SigninForm(request.POST or None)
@@ -48,7 +46,7 @@ def sign_in_view(request):
 		Patients.objects.create(patient_tc_no=tc_no,patient_name=name,patient_surname=surname,blood_group_of_patient=bloodgroup,
 								mother_name_of_patient=mothername,father_name_of_patient=fathername,telephone_of_patient=telephone,
 								e_mail_of_patient=e_mail,patient_place_of_birth=birthplace,patient_date_of_birth=birthdate,gender_of_patient=gender,password_of_patient=newpassword)
-		return redirect('randevu:anasayfa')
+		return redirect('randevu:homepage')
 	return render(request,'randevu/sign_in.html',{'form':form})
 
 def get_appointment(request):
@@ -58,7 +56,6 @@ def get_appointment(request):
 		dr=form.cleaned_data.get('dr_of_appointment')
 		patient=Patients.objects.get(patient_tc_no=request.user.username)
 		begin_time=form.cleaned_data.get('begin_time_of_appointment')
-		#end_time=form.cleaned_data.get('end_time_of_appointment')
 		Appointments.objects.create(date_of_appointment=date,dr_of_appointment=dr,patient_of_appointment=patient,begin_time_of_appointment=begin_time,end_time_of_appointment=end_time)
 		return redirect('randevu:profilepage')
 	return render(request,'randevu/get_randevu.html',{'form':form})
