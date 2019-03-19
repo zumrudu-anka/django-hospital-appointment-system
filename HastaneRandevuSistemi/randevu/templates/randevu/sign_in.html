@@ -15,11 +15,11 @@
 		<h1>RANDEVU SİSTEMİ KAYIT FORMU</h1>
 		<div class="sign-up">
 			
-			<form action="" method="POST"> {% csrf_token %}
+			<form action="." method="POST"> {% csrf_token %}
+				<input class="TC textbox" maxlength="11" name='patient_tc_no' placeholder="Tc Kimlik Numarası" type="text" >
+				<input class="textbox" type="text" name='patient_name' placeholder="İsim" required>
+				<input class="textbox" type="text" name='patient_surname' placeholder="Soyisim" required>
 				
-				<input class="TC textbox" onfocus="this.value=''" maxlength="11" name='patient_tc_no' placeholder="Tc Kimlik Numarası" type="text" required>
-				<input class="textbox" onfocus="this.value=''"type="text" name='patient_name' placeholder="İsim" required>
-				<input class="textbox" onfocus="this.value=''"type="text" name='patient_surname' placeholder="Soyisim" required>
 				<div class="check">
 					<span>Cinsiyet:</span>
 					<div>
@@ -31,29 +31,23 @@
 						{% endfor %}
 					</div>
 				</div>
-				<input name="patient_place_of_birth" required>
-    
-				<input class="textbox" name="patient_date_of_birth" onfocus="this.value=''" type="text" required>
+				<input class="textbox" onfocus="this.value=''"type="text" name='patient_place_of_birth' placeholder="Doğum Yeri" required>
+				<div class="check">
+				<input class="textbox" name="patient_date_of_birth" onfocus="this.value=''" type="date" placeholder="Doğum Tarihi" required>
 				<input class="textbox" name="father_name_of_patient" onfocus="this.value=''" type="text" placeholder="Baba Adı" required>
 				<input class="textbox" name="mother_name_of_patient" onfocus="this.value=''" type="text" placeholder="Anne Adı" required>
-				<input class="cep textbox" name="telephone_of_patient" type="text" required>
+				<input class="cep textbox" name="telephone_of_patient" placeholder="Telefon" type="text" required>
 				<input class="textbox" name="e_mail_of_patient" onfocus="this.value=''" type="text" placeholder="name@example.com">
-	
-				<input id="password" name="password_of_patient" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola" required>
-							<input id="confirm_password" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola Tekrar" required>
-							
+				{{ form.blood_group_of_patient }}
+				<input id="password" name="password_of_patient" class="textbox" onfocus="this.value=''" type="password" placeholder="Parola" required>
+				
 				<input class="kaydol-button"  type="submit" value="Kaydol" >
 	
 			</form>
-					
-		
 			
 		</div>
 		
 	</div>
-	
-	
-	
 	
 </body>
 </html>

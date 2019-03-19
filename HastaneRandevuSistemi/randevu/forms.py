@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.contrib.auth import authenticate
+import datetime
 
 class LoginForm(forms.Form):
 	username = forms.CharField()
@@ -19,22 +20,37 @@ class SigninForm(forms.ModelForm):
 	
 	class Meta:
 		model=Patients
-		fields=[
-		'patient_tc_no','patient_name','patient_surname',
-		'blood_group_of_patient','mother_name_of_patient','father_name_of_patient',
-		'telephone_of_patient','e_mail_of_patient','patient_place_of_birth',
-		'patient_date_of_birth','gender_of_patient','password_of_patient'
-		]
+		exclude=[]
 
 	def __init__(self,*args,**kwargs):
 		super(SigninForm, self).__init__(*args,**kwargs)
 		CHOICES=[('Bay','Bay'),('Bayan','Bayan')]
+
+		BloodGroups=[
+					('0 Rh-','0 Rh-'),('0 Rh+','0 Rh+'),
+					('A Rh-','A Rh-'),('A Rh+','A Rh+'),
+					('B Rh-','B Rh-'),('B Rh+','B Rh+'),
+					('AB Rh-','AB Rh-'),('AB Rh+','AB Rh+'),
+					]
+
 		self.fields['gender_of_patient'].widget = forms.widgets.RadioSelect(choices=CHOICES)
+		self.fields['patient_tc_no'] = forms.CharField(max_length=11)
+		self.fields['patient_name'] = forms.CharField(max_length=25)
+		self.fields['patient_surname'] = forms.CharField(max_length=25)
+		self.fields['blood_group_of_patient']=forms.ChoiceField(choices=BloodGroups)
+		self.fields['mother_name_of_patient'] = forms.CharField(max_length=15)
+		self.fields['father_name_of_patient'] = forms.CharField(max_length=15)
+		self.fields['telephone_of_patient'] = forms.CharField(max_length=15)
+		self.fields['e_mail_of_patient'] = forms.CharField(max_length=25)
+		self.fields['patient_place_of_birth'] = forms.CharField(max_length=15)
+		self.fields['patient_date_of_birth'] = forms.DateField(initial=datetime.date.today)
+		self.fields['password_of_patient'] = forms.CharField(max_length=25)
 
 class GetAppointmentForm(forms.ModelForm):
 	class Meta:
 		model=Appointments
 		fields=[
-				'dr_of_appointment','patient_of_appointment','date_of_appointment',
-				'begin_time_of_appointment','end_time_of_appointment'
+				'dr_of_appointment','date_of_appointment',
+				'begin_time_of_appointment',
 			]
+
