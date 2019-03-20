@@ -84,14 +84,14 @@ class Patients(models.Model):
 	patient_tc_no = models.CharField(max_length=15, verbose_name='Tc No')
 	patient_name = models.CharField(max_length=25, verbose_name='Adı')
 	patient_surname = models.CharField(max_length=25, verbose_name='Soyadı')
-	blood_group_of_patient=models.CharField(max_length=5,verbose_name='Kan Grubu')
+	blood_group_of_patient=models.CharField(max_length=5,verbose_name='Kan Grubu',choices=BloodGroups)
 	mother_name_of_patient=models.CharField(max_length=15,verbose_name='Anne Adı')
 	father_name_of_patient=models.CharField(max_length=15,verbose_name='Baba Adı')
 	telephone_of_patient = models.CharField(max_length=20,verbose_name='Telefonu')
 	e_mail_of_patient=models.CharField(max_length=50,verbose_name='E-Mail')
 	patient_place_of_birth=models.CharField(max_length=15,verbose_name='Doğum Yeri')
 	patient_date_of_birth=models.DateField(verbose_name='Doğum Tarihi',default=datetime.date.today)
-	gender_of_patient = models.CharField(max_length=5,verbose_name='Cinsiyet')
+	gender_of_patient = models.CharField(max_length=5,verbose_name='Cinsiyet',choices=Genders)
 	password_of_patient = models.CharField(max_length=16,verbose_name='Parola')
 
 	def __str__(self):
@@ -106,7 +106,6 @@ class Appointments(models.Model):
 	patient_of_appointment=models.ForeignKey(Patients,verbose_name='Hasta',on_delete=models.CASCADE)
 	date_of_appointment=models.DateField(verbose_name='Randevu Tarihi')
 	begin_time_of_appointment=models.TimeField(verbose_name='Başlangıç Zamanı')
-	#end_time_of_appointment=models.TimeField(verbose_name='Bitiş Zamanı')
 
 	def __str__(self):
 		return '{} - {} - {}'.format(self.dr_of_appointment,self.patient_of_appointment,self.date_of_appointment)

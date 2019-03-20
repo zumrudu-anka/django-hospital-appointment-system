@@ -3,8 +3,7 @@
 <head>
 	<meta charset="UTF-8" lang='tr'>
 	<title>Ana Ekran</title>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
@@ -12,6 +11,8 @@
 	<link rel="stylesheet" href="{% static 'css/sign-in.css' %}">
 </head>
 <body>
+
+  {% if user.is_authenticated %}
 	<div class="container">
 		
 		<h2 class="head">Hastane Randevu Arama Sistemi</h2>
@@ -217,7 +218,7 @@
   		<li class="dakika"><input name='begin_time_of_appointment' type="radio"><label for="">16:20</label></li>
   		<li class="dakika"><input name='begin_time_of_appointment' type="radio"><label for="">16:30</label></li>
   		<li class="dakika"><input name='begin_time_of_appointment' type="radio"><label for="">16:40</label></li>
-  		<li class="dakika"><input name="clock" type="radio"><label for="">16:50</label></li>
+  		<li class="dakika"><input name="begin_time_of_appointment" type="radio"><label for="">16:50</label></li>
   		
   	</ul>
   
@@ -225,9 +226,8 @@
   <button class="btn btn-danger randevu ">Randevu Al</button>
   </div>
 
-
 	</div>
-<script src="sehirler.js"></script>
+<script src="{% static 'js\sehirler.js' %}"></script>
 
 	<script>
 var acc = document.getElementsByClassName("accordion");
@@ -245,9 +245,8 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 		
-		
-		$('[name="Sehir"]').change(function(e){
-		var options = '<option value="" selected>İlçe</option>';
+		$('[name="Cities"]').change(function(e){
+		var options = '<option value="" selected>---</option>';
 		if (!$(this).val()) {
 			$('[name=ilce]').html(options).prop("disabled", true).parent().addClass("select-box--disabled");
 			return;
@@ -258,12 +257,20 @@ for (i = 0; i < acc.length; i++) {
 		});
 		$('[name=ilce]').html(options).prop("disabled", false).parent().removeClass("select-box--disabled");
 	});
-	$('[name="Sehir"]').change();
-		
+	$('[name="Cities"]').change();
 		
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+{% else %}
+  <div style=" margin-top: 15%">
+          <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
+          <input style="margin-right: 44%" onclick="window.location.href='{% url 'randevu:homepage' %}'" type="button" class="btn btn-danger randevu" value="Giriş Yapmak İçin Tıklayın">
+
+  </div>
+
+{% endif %}
 </body>
 </html> 

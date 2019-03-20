@@ -4,6 +4,12 @@ from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 from .urls import *
+import json
+
+json_data=open('randevu/static/js/yeni.json')
+data1=json.load(json_data)
+data2=json.dumps(data1)
+print(data2)
 
 
 def homepage_view(request):
