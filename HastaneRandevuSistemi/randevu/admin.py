@@ -6,22 +6,23 @@ class CityAdmin(admin.ModelAdmin):
 	fields=('city_name',)
 	list_display=('city_name',)
 	list_filter=('city_name',)
-	search_fields=('city_name',)
-
+	search_fields=['city_name']
+	ordering=('city_name',)
 @admin.register(County)
 class CountyAdmin(admin.ModelAdmin):
 	fields=('county_name','city_of_county')
 	list_display=('county_name','city_of_county')
-	list_filter=('county_name','city_of_county')
-	search_fields=('county_name','city_of_county')
+	list_filter=('city_of_county',)
+	search_fields=['county_name','city_of_county__city_name']
+	ordering=('city_of_county',)
 
 @admin.register(Hospitals)
 class HospitalAdmin(admin.ModelAdmin):
 	fields=('hospital_name','county_of_hospital','hospital_telephone','begin_time','end_time','hospital_address')
-	list_display=('hospital_name','county_of_hospital','hospital_telephone')
-	list_filter=('hospital_name','county_of_hospital','hospital_telephone')
-	search_fields=('hospital_name','county_of_hospital','hospital_telephone')
-
+	list_display=['hospital_name','county_of_hospital','hospital_telephone']
+	list_filter=('county_of_hospital__city_of_county',)
+	search_fields=['hospital_name','county_of_hospital__city_of_county__city_name','hospital_telephone']
+    
 @admin.register(Polyclinics)
 class PolyclinicsAdmin(admin.ModelAdmin):
 	fields=('polyclinic_name','hospital_of_polyclinic')
