@@ -7,13 +7,6 @@ from .urls import *
 import json
 
 """
-with open('randevu/static/js/01.json',encoding='utf-8') as file:
-	json_data=json.load(file)
-for i in json_data:
-	print(i['label'])
-"""
-
-"""
 with open('randevu/static/js/iller.json',encoding='utf-8') as file3:
 	json_data3=json.load(file3)
 for i in range(1,82):
@@ -28,14 +21,6 @@ for i in range(1,82):
 		city=City.objects.get(pk=i)
 		County.objects.create(city_of_county=city,county_name=j['name'])
 		print(j['name'])
-"""
-
-"""
-with open('randevu/static/js/yeni2.json','w') as file:
-	json.dump(json_data,file)
-for i in range(1,82):
-	for k in json_data['{}'.format(i)]:
-		print(k)
 """
 
 def homepage_view(request):
