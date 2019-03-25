@@ -6,23 +6,6 @@ from .forms import *
 from .urls import *
 import json
 
-"""
-with open('randevu/static/js/iller.json',encoding='utf-8') as file3:
-	json_data3=json.load(file3)
-for i in range(1,82):
-	City.objects.create(pk=i,city_name=json_data3['{}'.format(i)])
-"""
-
-"""
-with open('randevu/static/js/yeni.json') as file2:
-	json_data2=json.load(file2)
-for i in range(1,82):
-	for j in (json_data2['{}'.format(i)]):
-		city=City.objects.get(pk=i)
-		County.objects.create(city_of_county=city,county_name=j['name'])
-		print(j['name'])
-"""
-
 def homepage_view(request):
 	form=LoginForm(request.POST or None)
 	if form.is_valid():

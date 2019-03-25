@@ -7,4 +7,4 @@ class Command(BaseCommand):
 		with open('randevu/static/js/iller.json',encoding='utf-8') as file3:
 			json_data3=json.load(file3)
 		for i in range(1,82):
-			City.objects.create(pk=i,city_name=json_data3['{}'.format(i)])
+			City.objects.get_or_create(pk=i,city_name=json_data3['{}'.format(i)])

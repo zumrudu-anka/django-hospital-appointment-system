@@ -9,4 +9,4 @@ class Command(BaseCommand):
 		for i in range(1,82):
 			for j in (json_data2['{}'.format(i)]):
 				city=City.objects.get(pk=i)
-				County.objects.create(city_of_county=city,county_name=j['name'])
+				County.objects.get_or_create(city_of_county=city,county_name=j['name'])
