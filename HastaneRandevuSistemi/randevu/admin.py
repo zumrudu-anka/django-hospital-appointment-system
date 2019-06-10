@@ -49,7 +49,7 @@ class PatientAdmin(admin.ModelAdmin):
 
 @admin.register(Appointments)
 class AppointmentAdmin(admin.ModelAdmin):
-	fields=('date_of_appointment','dr_of_appointment','patient_of_appointment','begin_time_of_appointment','end_time_of_appointment')
+	fields=('date_of_appointment','dr_of_appointment','patient_of_appointment','begin_time_of_appointment')
 	list_display=('date_of_appointment','dr_of_appointment','patient_of_appointment')
 	list_filter=('date_of_appointment','dr_of_appointment','patient_of_appointment')
 	search_fields=('date_of_appointment','dr_of_appointment','patient_of_appointment')

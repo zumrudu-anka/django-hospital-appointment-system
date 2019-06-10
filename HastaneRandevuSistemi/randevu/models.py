@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
 import datetime
 
 Genders=(('Erkek','Erkek'),
@@ -21,6 +23,14 @@ class City(models.Model):
 	def __str__(self):
 		return '{}'.format(self.city_name)
 
+	def clean(self):
+		try:
+			temp=City.objects.get(city_name=self.city_name)
+		except City.DoesNotExist:
+			pass
+		else:
+			raise ValidationError({"city_name":"Sistemde Kayıtlı."})
+
 	class Meta:
 		verbose_name = 'Şehirler'
 		verbose_name_plural='Şehirler'
@@ -31,6 +41,14 @@ class County(models.Model):
 
 	def __str__(self):
 		return '{}'.format(self.county_name)
+
+	def clean(self):
+		try:
+			temp=County.objects.get(county_name=self.county_name)
+		except County.DoesNotExist:
+			pass
+		else:
+			raise ValidationError({"county_name":"Sistemde Kayıtlı."})
 
 	class Meta:
 		verbose_name='İlçeler'
@@ -47,6 +65,14 @@ class Hospitals(models.Model):
 	def __str__(self):
 		return '{} - {} - {}'.format(self.hospital_name,self.begin_time,self.end_time)
 
+	def clean(self):
+		try:
+			temp=Hospitals.objects.get(hospital_name=self.hospital_name,county_of_hospital=self.county_of_hospital)
+		except Hospitals.DoesNotExist:
+			pass
+		else:
+			raise ValidationError({"hospital_name":"Sistemde Kayıtlı."})
+
 	class Meta:
 		verbose_name='Hastaneler'
 		verbose_name_plural='Hastaneler'
@@ -58,13 +84,21 @@ class Polyclinics(models.Model):
 	def __str__(self):
 		return '{} - {}'.format(self.hospital_of_polyclinic,self.polyclinic_name)
 
+	def clean(self):
+		try:
+			temp=Polyclinics.objects.get(polyclinic_name=self.polyclinic_name,hospital_of_polyclinic=self.hospital_of_polyclinic)
+		except Polyclinics.DoesNotExist:
+			pass
+		else:
+			raise ValidationError({"polyclinic_name":"Sistemde Kayıtlı."})
+
 	class Meta:
 		verbose_name='Poliklinikler'
 		verbose_name_plural='Poliklinikler'
 
 class Doctors(models.Model):
 	polyclinic_of_doctor=models.ForeignKey(Polyclinics,verbose_name='Poliklinik',on_delete=models.CASCADE)
-	dr_tc_no=models.CharField(max_length=15,verbose_name='Tc No')
+	dr_tc_no=models.CharField(max_length=15,primary_key=True,verbose_name='Tc No')
 	dr_name=models.CharField(max_length=25,verbose_name='Adı')
 	dr_surname=models.CharField(max_length=25,verbose_name='Soyadı')
 	telephone_of_dr=models.CharField(max_length=20,verbose_name='Telefon No')
@@ -74,14 +108,24 @@ class Doctors(models.Model):
 	gender_of_dr=models.CharField(max_length=5,verbose_name='Cinsiyet',choices=Genders)
 	
 	def __str__(self):
-		return '{} - {} - {} - {} - {}'.format(self.polyclinic_of_doctor.hospital_of_polyclinic.hospital_name,self.polyclinic_of_doctor.polyclinic_name,self.dr_name,self.dr_surname,self.gender_of_dr)
+		return '{} - {} - {} - {} - {}'.format(self.polyclinic_of_doctor.hospital_of_polyclinic.hospital_name,
+											   self.polyclinic_of_doctor.polyclinic_name,
+											   self.dr_name,self.dr_surname,self.gender_of_dr)
+
+	def clean(self):
+		try:
+			temp =Doctors.objects.get(telephone_of_dr=self.telephone_of_dr)
+		except Doctors.DoesNotExist:
+			pass
+		else:
+			raise ValidationError({"telephone_of_dr":"Sistemde Kayıtlı."})
 
 	class Meta:
 		verbose_name='Doktorlar'
 		verbose_name_plural='Doktorlar'
 
 class Patients(models.Model):
-	patient_tc_no = models.CharField(max_length=15, verbose_name='Tc No')
+	patient_tc_no = models.CharField(max_length=15,primary_key=True, verbose_name='Tc No')
 	patient_name = models.CharField(max_length=25, verbose_name='Adı')
 	patient_surname = models.CharField(max_length=25, verbose_name='Soyadı')
 	blood_group_of_patient=models.CharField(max_length=5,verbose_name='Kan Grubu',choices=BloodGroups)
@@ -97,6 +141,19 @@ class Patients(models.Model):
 	def __str__(self):
 		return '{} - {} - {}'.format(self.patient_name,self.patient_surname,self.gender_of_patient)
 
+	def clean(self):
+		try:
+			temp = Patients.objects.get(telephone_of_patient=self.telephone_of_patient)
+		except Patients.DoesNotExist:
+			try:
+				temp = Patients.objects.get(e_mail_of_patient=self.e_mail_of_patient)
+			except Patients.DoesNotExist:
+				pass
+			else:
+				raise ValidationError({"e_mail_of_patient":"Sistemde Kayıtlı."})
+		else:
+			raise ValidationError({"telephone_of_patient":"Sistemde Kayıtlı."})
+
 	class Meta:
 		verbose_name = 'Hastalar'
 		verbose_name_plural = 'Hastalar'
@@ -109,6 +166,16 @@ class Appointments(models.Model):
 
 	def __str__(self):
 		return '{} - {} - {}'.format(self.dr_of_appointment,self.patient_of_appointment,self.date_of_appointment)
+
+	def clean(self):
+		temp = Appointments.objects.filter(date_of_appointment=self.date_of_appointment)
+		if temp:
+			for i in temp:
+				if i.begin_time_of_appointment == self.begin_time_of_appointment:
+					if i.dr_of_appointment == self.dr_of_appointment or i.patient_of_appointment == self.patient_of_appointment:
+						raise ValidationError({"begin_time_of_appointment":"Sistemde Kayıtlı."})
+		print(self.begin_time_of_appointment)
+		print(self.date_of_appointment)
 
 	class Meta:
 		verbose_name='Randevular'
