@@ -1,55 +1,36 @@
 {% load static %}
-
 <!DOCTYPE html>
 <head>
 	<meta charset="UTF-8" lang="tr">
 	<title>Profil</title>
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js">
-	</script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
-
 	<link rel="stylesheet" href=" {% static 'css/profil.css'  %}">
 </head>
-
 <body>
-
-
 	<div class="container">
-
 		<h1>Profil Sayfası</h1>
 		<div class="card">
 			<div class="personal">
 				<figure>
-
 					<img src="http://lorempixel.com/400/200/" alt="">
 				</figure>
 				<h3 class="name">{{ patient.patient_name }} {{ patient.patient_surname }}</h3>
 			</div>
-
 			<ul class="options">
-			
 				<li><button class="randevu" onclick="window.location.href={% url 'randevu:get_appointment' %}">Randevu Al</button></li>
 				<li><button class="history" data-toggle="modal" data-target="#myHistory">Randevu Geçmişi</button>
-
 					<div class="modal fade" id="myHistory" role="dialog">
 						<div class="modal-dialog modal-lg">
-
 							<div class="modal-content">
-
 								<div class="modal-header">
-
 									<h5>Randevu Geçmişi</h5>
-
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								
 								</div>
 								<div class="modal-body ">
-
 									<table class="table">
 										<thead>
 											<tr>
@@ -70,74 +51,55 @@
 											{% endfor %}
 										</tbody>
 									</table>
-
-
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-danger historyexit" data-dismiss="modal">Çıkış</button>
 								</div>
 							</div>
-
 						</div>
 					</div>
-
 				</li>
 				<li><button class="pass" data-toggle="modal" data-target="#myModal">Şifre Değiştir</button>
-
 					<div class="modal fade" id="myModal" role="dialog">
 						<div class="modal-dialog">
-
 							<div class="modal-content">
-
 								<div class="modal-header">
-
 									<h5>Şifre Değiştirme</h5>
-
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body">
-
 									<input id="old_password" class="textbox" onfocus="this.value=''" type="text" placeholder="Eski Parola" required>
-
 									<input id="password" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola" required>
-
 									<input id="confirm_password" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola Tekrar" required>
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-danger kaydet " data-dismiss="modal">Kaydet</button>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</li>
 				<li><button class="exit" onclick="window.location.href='{% url 'randevu:logout' %}'">Çıkış</button></li>
 			</ul>
-
 		</div>
 	</div>
-	<script>
+<script>
 	$('.kaydet').click(function(event){
-    
-        data = $('#password').val();
-        var len = data.length;
-    
-         
-        if($('#password').val() != $('#confirm_password').val()) {
-            alert("Lütfen parolayý ayný giriniz.");
+	    data = $('#password').val();
+	    var len = data.length;
+	    if($('#password').val() != $('#confirm_password').val()) {
+	        alert("Lütfen parolayý ayný giriniz.");
 					$('#confirm_password').css("background-color","#dd0000");
 					$('#confirm_password').css("color","white");
-
-            event.preventDefault();
-        }
-         
-    });
+	        event.preventDefault();
+	    }
+	});
 </script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-
 </html>
 
 

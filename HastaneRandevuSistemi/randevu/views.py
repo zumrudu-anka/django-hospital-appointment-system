@@ -5,6 +5,7 @@ from .models import *
 from .forms import *
 from .urls import *
 import json
+from django.contrib import messages
 
 def homepage_view(request):
 	form=LoginForm(request.POST or None)
@@ -12,9 +13,9 @@ def homepage_view(request):
 		username=form.cleaned_data.get('username')
 		password=form.cleaned_data.get('password')
 		user=authenticate(username=username,password=password)
-		login(request,user)
-		patient=Patients.objects.get(patient_tc_no=user.username)
-		return redirect('randevu:profilepage')
+		if not user.is_superuser:
+			login(request,user)
+			return redirect('randevu:profilepage')
 	return render(request,'randevu/login.html',{'form':form})
 
 def profilepage_view(request):
@@ -41,7 +42,7 @@ def sign_in_view(request):
 		birthplace=form.cleaned_data.get('patient_place_of_birth')
 		gender=form.cleaned_data.get('gender_of_patient')
 		newpassword=form.cleaned_data.get('password_of_patient')
-		user=User.objects._create_user(username=tc_no,password=newpassword,email=e_mail)
+		user=User.objects._create_user(username=tc_no,password=newpassword,email=e_mail,is_staff=True)
 		user.save()
 		Patients.objects.create(patient_tc_no=tc_no,patient_name=name,patient_surname=surname,blood_group_of_patient=bloodgroup,
 								mother_name_of_patient=mothername,father_name_of_patient=fathername,telephone_of_patient=telephone,

@@ -3,8 +3,8 @@ from django.core.exceptions import ValidationError
 
 import datetime
 
-Genders=(('Erkek','Erkek'),
-		('Kadın','Kadın')
+Genders=(('Bay','Bay'),
+		('Bayan','Bayan')
 	)
 
 BloodGroups=(('0 Rh-','0 Rh-'),

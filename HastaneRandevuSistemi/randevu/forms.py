@@ -25,14 +25,12 @@ class SigninForm(forms.ModelForm):
 	def __init__(self,*args,**kwargs):
 		super(SigninForm, self).__init__(*args,**kwargs)
 		CHOICES=[('Bay','Bay'),('Bayan','Bayan')]
-
 		BloodGroups=[
 					('0 Rh-','0 Rh-'),('0 Rh+','0 Rh+'),
 					('A Rh-','A Rh-'),('A Rh+','A Rh+'),
 					('B Rh-','B Rh-'),('B Rh+','B Rh+'),
 					('AB Rh-','AB Rh-'),('AB Rh+','AB Rh+'),
 					]
-
 		self.fields['gender_of_patient'].widget = forms.widgets.RadioSelect(choices=CHOICES)
 		self.fields['patient_tc_no'] = forms.CharField(max_length=11)
 		self.fields['patient_name'] = forms.CharField(max_length=25)

@@ -3,63 +3,51 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Giriş</title>
-	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	
 	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
-	
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-
 <body>
 {% if not user.is_authenticated %}
 	<div class="container">
-			<div class="icons">
-					<i class="tint fas fa-syringe fa-4x"></i>
-					<i class=" fas fa-tint"></i>
-					<i class=" fas fa-tint"></i>
-				</div>
-				<h1>RANDEVU SİSTEMİ</h1>
-				
-				<div class="login">
-					
-					<form action="" method="POST"> {% csrf_token %}
-					<input type="text" name='username' onfocus="this.value='' " class="" id="tckimlik" value="Kimlik No" autocomplete="off">
-					<input type="password" name='password' onfocus="this.value='' " class="" id="sifre" value="Şifre Giriniz" autocomplete="off">
-					<input type="checkbox" id="benihatirla"> <span>Beni Hatırla </span>
-					<a href="https://www.google.com.tr/">Şifremi unuttum...</a>
-					<input type="submit" class="" id="giris" value="Giriş">
-					<input onclick="window.location.href='{% url 'randevu:sign_in' %}'" type="button" class=""id="uyeol" value="Üye Ol">
-					
-					</form>
-					
-				</div>
-
+		<div class="icons">
+			<i class="tint fas fa-syringe fa-4x"></i>
+			<i class=" fas fa-tint"></i>
+			<i class=" fas fa-tint"></i>
+		</div>
+			<h1>RANDEVU SİSTEMİ</h1>
+		<div class="login">
+			<form action="" method="POST"> {% csrf_token %}
+			<input type="text" name='username' onfocus="this.value='' " class="" id="tckimlik" value="Kimlik No" autocomplete="off">
+			<input type="password" name='password' onfocus="this.value='' " class="" id="sifre" value="Şifre Giriniz" autocomplete="off">
+			<input type="checkbox" id="benihatirla"> <span>Beni Hatırla </span>
+			<a href="https://www.google.com.tr/">Şifremi unuttum...</a>
+			<input type="submit" class="" id="giris" value="Giriş">
+			<input onclick="window.location.href='{% url 'randevu:sign_in' %}'" type="button" class=""id="uyeol" value="Üye Ol">
+			{% if form.errors %}
+				{{ form.non_field_errors}}
+			{% endif %}
+			</form>
+		</div>
 	</div>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 {% else %}
-
-		<div class="container">
-					<div class="icons">
-							<i class="tint fas fa-syringe fa-4x"></i>
-							<i class=" fas fa-tint"></i>
-							<i class=" fas fa-tint"></i>
-						</div>
-						<h1>Giriş Yapmış Bulunmaktasınız</h1>
-						
-						<input onclick="window.location.href='{% url 'randevu:profilepage' %}'" type="button" class="" id="uyeol" value="Anasayfa">
-
-			</div>
-
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
+	<div class="container">
+		<div class="icons">
+			<i class="tint fas fa-syringe fa-4x"></i>
+			<i class=" fas fa-tint"></i>
+			<i class=" fas fa-tint"></i>
+		</div>
+		<h1>Giriş Yapmış Bulunmaktasınız</h1>
+		<input onclick="window.location.href='{% url 'randevu:profilepage' %}'" type="button" class="" id="uyeol" value="Profil Sayfanıza Gitmek İçin Tıklayınız">
+	</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 {% endif %}
 </body>
-
 </html>
+
+
