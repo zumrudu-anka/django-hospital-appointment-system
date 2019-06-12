@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.shortcuts import render,render_to_response
+from django.template import RequestContext
+
 from .models import *
 from .forms import *
 from .urls import *
@@ -27,7 +31,9 @@ def profilepage_view(request):
 		user=request.user
 		user.set_password(newpassword)
 		user.save()
-		return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints,'form':form})
+		update_session_auth_hash(request,user)
+		messages.success(request,"Şifreniz Başarıyla Güncellendi!")
+		#return redirect('randevu:profilepage')
 	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints,'form':form})
 
 def logout_view(request):

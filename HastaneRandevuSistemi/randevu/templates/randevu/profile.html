@@ -13,6 +13,7 @@
 <body>
 	<div class="container">
 		<h1>Profil Sayfası</h1>
+		
 		<div class="card">
 			<div class="personal">
 				<figure>
@@ -86,7 +87,14 @@
 			<h3 style="color:red">
 				{% if form.errors %}
 					{{ form.non_field_errors}}
-				{% endif %}	
+				{% endif %}
+			</h3>
+			<h3 style = "color:green">
+				{% if messages %}
+					{% for i in messages%}
+						{{ i }}
+					{% endfor %}
+				{% endif %}
 			</h3>
 		</div>
 	</div>
