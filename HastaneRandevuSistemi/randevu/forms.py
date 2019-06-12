@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 import datetime
 
 class LoginForm(forms.Form):
@@ -15,6 +16,26 @@ class LoginForm(forms.Form):
 			if not user:
 				raise forms.ValidationError('Kullanıcı adını veya parolayı yanlış girdiniz!')
 		return super(LoginForm,self).clean()
+
+class ChangePassForm(forms.Form):
+	
+	old_password=forms.CharField()
+	new_password=forms.CharField()
+	again_new_pass=forms.CharField()
+
+	def __init__(self,*args,**kwargs):
+		user=kwargs.pop('user')
+		super(ChangePassForm,self).__init__(*args,**kwargs)
+		self.user=user
+		self.fields['old_password'].widget = forms.PasswordInput()
+		self.fields['new_password'].widget = forms.PasswordInput()
+		self.fields['again_new_pass'].widget = forms.PasswordInput()
+	
+	def clean(self):
+		old_password = self.cleaned_data.get('old_password')
+		if not self.user.check_password(old_password):
+			raise forms.ValidationError('Eski şifrenizi yanlış girdiniz!')
+		return super(ChangePassForm,self).clean()
 
 class SigninForm(forms.ModelForm):
 	

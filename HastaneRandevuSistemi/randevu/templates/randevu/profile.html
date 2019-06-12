@@ -67,28 +67,36 @@
 									<h5>Şifre Değiştirme</h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
-								<div class="modal-body">
-									<input id="old_password" class="textbox" onfocus="this.value=''" type="text" placeholder="Eski Parola" required>
-									<input id="password" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola" required>
-									<input id="confirm_password" class="textbox" onfocus="this.value=''" type="text" placeholder="Parola Tekrar" required>
-								</div>
-								<div class="modal-footer">
-									<button class="btn btn-danger kaydet " data-dismiss="modal">Kaydet</button>
-								</div>
+								<form action="" method="POST"> {% csrf_token %}
+									<div class="modal-body">
+										<input id="old_password" name="old_password" class="textbox" onfocus="this.value=''" type="password" placeholder="Eski Parola" required>
+										<input id="password" name="new_password" class="textbox" onfocus="this.value=''" type="password" placeholder="Parola" required>
+										<input id="confirm_password" name="again_new_pass" class="textbox" onfocus="this.value=''" type="password" placeholder="Parola Tekrar" required>
+									</div>
+									<div class="modal-footer">
+										<input type="submit" class="btn btn-danger kaydet" id="kaydet" value="Kaydet">
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</li>
 				<li><button class="exit" onclick="window.location.href='{% url 'randevu:logout' %}'">Çıkış</button></li>
 			</ul>
+			<h3 style="color:red">
+				{% if form.errors %}
+					{{ form.non_field_errors}}
+				{% endif %}	
+			</h3>
 		</div>
 	</div>
+
 <script>
 	$('.kaydet').click(function(event){
 	    data = $('#password').val();
 	    var len = data.length;
 	    if($('#password').val() != $('#confirm_password').val()) {
-	        alert("Lütfen parolayý ayný giriniz.");
+	        alert("Yeni parolanizi tekrar giriniz");
 					$('#confirm_password').css("background-color","#dd0000");
 					$('#confirm_password').css("color","white");
 	        event.preventDefault();

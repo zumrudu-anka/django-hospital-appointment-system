@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import *
 from .forms import *
 from .urls import *
 import json
-from django.contrib import messages
 
 def homepage_view(request):
 	form=LoginForm(request.POST or None)
@@ -21,7 +21,14 @@ def homepage_view(request):
 def profilepage_view(request):
 	patient=Patients.objects.get(patient_tc_no=request.user.username)
 	appoints=Appointments.objects.filter(patient_of_appointment=patient)
-	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints})
+	form = ChangePassForm(request.POST or None, user=request.user)
+	if form.is_valid():
+		newpassword = form.cleaned_data.get('new_password')
+		user=request.user
+		user.set_password(newpassword)
+		user.save()
+		return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints,'form':form})
+	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints,'form':form})
 
 def logout_view(request):
 	logout(request)

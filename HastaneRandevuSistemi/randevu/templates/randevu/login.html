@@ -18,15 +18,15 @@
 			<h1>RANDEVU SİSTEMİ</h1>
 		<div class="login">
 			<form action="" method="POST"> {% csrf_token %}
-			<input type="text" name='username' onfocus="this.value='' " class="" id="tckimlik" value="Kimlik No" autocomplete="off">
-			<input type="password" name='password' onfocus="this.value='' " class="" id="sifre" value="Şifre Giriniz" autocomplete="off">
-			<input type="checkbox" id="benihatirla"> <span>Beni Hatırla </span>
-			<a href="https://www.google.com.tr/">Şifremi unuttum...</a>
-			<input type="submit" class="" id="giris" value="Giriş">
-			<input onclick="window.location.href='{% url 'randevu:sign_in' %}'" type="button" class=""id="uyeol" value="Üye Ol">
-			{% if form.errors %}
-				{{ form.non_field_errors}}
-			{% endif %}
+				<input type="text" name='username' onfocus="this.value='' " class="" id="tckimlik" value="Kimlik No" autocomplete="off">
+				<input type="password" name='password' onfocus="this.value='' " class="" id="sifre" value="Şifre Giriniz" autocomplete="off">
+				<input type="checkbox" id="benihatirla"> <span>Beni Hatırla </span>
+				<a href="https://www.google.com.tr/">Şifremi unuttum...</a>
+				<input type="submit" class="" id="giris" value="Giriş">
+				<input onclick="window.location.href='{% url 'randevu:sign_in' %}'" type="button" class=""id="uyeol" value="Üye Ol">
+				{% if form.errors %}
+					{{ form.non_field_errors}}
+				{% endif %}
 			</form>
 		</div>
 	</div>
