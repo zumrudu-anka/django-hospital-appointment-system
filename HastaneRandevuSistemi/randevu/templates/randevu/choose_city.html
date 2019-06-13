@@ -11,15 +11,16 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-<form method="POST"> {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" class="btn btn-danger kaydet" id="kaydet" value="Kaydet">
-</form>
+  <form action="" method="POST">{% csrf_token %}
+    
+  </form>
 {% else %}
   <div style=" margin-top: 15%">
           <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
           <input style="margin-right: 44%" onclick="window.location.href='{% url 'randevu:homepage' %}'" type="button" class="btn btn-danger randevu" value="Giriş Yapmak İçin Tıklayın">
+
   </div>
+
 {% endif %}
 </body>
 </html> 

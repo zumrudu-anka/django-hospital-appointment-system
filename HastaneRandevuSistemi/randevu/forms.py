@@ -66,10 +66,15 @@ class SigninForm(forms.ModelForm):
 		self.fields['password_of_patient'] = forms.CharField(max_length=25)
 
 class GetAppointmentForm(forms.ModelForm):
+
 	class Meta:
 		model=Appointments
-		fields=[
-				'dr_of_appointment','date_of_appointment',
-				'begin_time_of_appointment',
-			]
+		"""fields=[
+										'dr_of_appointment','date_of_appointment',
+										'begin_time_of_appointment',
+									]"""
+		exclude=[]
 
+	def __init__(self,*args,**kwargs):
+		super(GetAppointmentForm,self).__init__(*args,**kwargs)
+		self.fields['choose_city']=forms.ModelChoiceField(queryset=City.objects.annotate())

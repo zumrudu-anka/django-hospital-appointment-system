@@ -63,6 +63,20 @@ def sign_in_view(request):
 		return redirect('randevu:homepage')
 	return render(request,'randevu/sign_in.html',{'form':form})
 
+def choose_city_view(request):
+	form = ChooseCityForm(request.POST or None)
+	if form.is_valid():
+		city=form.cleaned_data.get('city')
+
+def choose_county_view(request):
+	pass
+
+def choose_hospital_view(request):
+	pass
+
+def choose_polyclinic_view(request):
+	pass
+
 def get_appointment(request):
 	form=GetAppointmentForm(request.POST or None)
 	if form.is_valid():
@@ -70,7 +84,10 @@ def get_appointment(request):
 		dr=form.cleaned_data.get('dr_of_appointment')
 		patient=Patients.objects.get(patient_tc_no=request.user.username)
 		begin_time=form.cleaned_data.get('begin_time_of_appointment')
-		Appointments.objects.create(date_of_appointment=date,dr_of_appointment=dr,patient_of_appointment=patient,begin_time_of_appointment=begin_time,end_time_of_appointment=end_time)
+		Appointments.objects.create(date_of_appointment=date,
+									dr_of_appointment=dr,
+									patient_of_appointment=patient,
+									begin_time_of_appointment=begin_time)
 		return redirect('randevu:profilepage')
 	return render(request,'randevu/get_randevu.html',{'form':form})
 
