@@ -33,7 +33,7 @@ def profilepage_view(request):
 		user.save()
 		update_session_auth_hash(request,user)
 		messages.success(request,"Şifreniz Başarıyla Güncellendi!")
-		#return redirect('randevu:profilepage')
+		return redirect('randevu:profilepage')
 	return render(request,'randevu/profile.html',{'patient':patient,'appoints':appoints,'form':form})
 
 def logout_view(request):
@@ -64,24 +64,51 @@ def sign_in_view(request):
 	return render(request,'randevu/sign_in.html',{'form':form})
 
 def choose_city_view(request):
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
 	form = ChooseCityForm(request.POST or None)
 	if form.is_valid():
-		city=form.cleaned_data.get('city')
+		city=form.cleaned_data.get('city_name')
+		return redirect('randevu:choose_county',city_id = city.id)
+	return render(request,'randevu/choose_city.html',{'form':form,'patient':patient})
 
-def choose_county_view(request):
-	pass
+def choose_county_view(request, city_id):
+	city=City.objects.get(id=city_id)
+	form = ChooseCountyForm(request.POST or None, city=city)
+	if form.is_valid():
+		county=form.cleaned_data.get('county_name')
+		return redirect('randevu:choose_hospital',county_id=county.id)
+	return render(request,'randevu/choose_county.html',{'form':form,'city':city})
 
-def choose_hospital_view(request):
-	pass
+def choose_hospital_view(request,county_id):
+	county = County.objects.get(id=county_id)
+	form = ChooseHospitalForm(request.POST or None, county=county)
+	if form.is_valid():
+		hospital = form.cleaned_data.get('hospital_name')
+		return redirect('randevu:choose_polyclinic',hospital_id=hospital.id)
+	return render(request,'randevu/choose_hospital.html',{'form':form,'county':county})
 
-def choose_polyclinic_view(request):
-	pass
+def choose_polyclinic_view(request,hospital_id):
+	hospital=Hospitals.objects.get(id=hospital_id)
+	form=ChoosePolyclinicForm(request.POST or None,hospital=hospital)
+	if form.is_valid():
+		polyclinic = form.cleaned_data.get('polyclinic_name')
+		return redirect('randevu:choose_doctor',polyclinic_id=polyclinic.id)
+	return render(request,'randevu/choose_polyclinic.html',{'form':form,'hospital':hospital})
 
-def get_appointment(request):
+def choose_dr_view(request,polyclinic_id):
+	polyclinic=Polyclinics.objects.get(id=polyclinic_id)
+	form=ChooseDrForm(request.POST or None,polyclinic=polyclinic)
+	if form.is_valid():
+		dr=form.cleaned_data.get('dr_name')
+		return redirect('randevu:get_appointment',doctor_tc=dr.dr_tc_no)
+	return render(request,'randevu/choose_doctor.html',{'form':form,'polyclinic':polyclinic})
+
+def get_appointment(request,doctor_tc):
 	form=GetAppointmentForm(request.POST or None)
 	if form.is_valid():
 		date=form.cleaned_data.get('date_of_appointment')
-		dr=form.cleaned_data.get('dr_of_appointment')
+		dr=Doctors.objects.get(dr_tc_no=doctor_tc)
+		print(dr)
 		patient=Patients.objects.get(patient_tc_no=request.user.username)
 		begin_time=form.cleaned_data.get('begin_time_of_appointment')
 		Appointments.objects.create(date_of_appointment=date,

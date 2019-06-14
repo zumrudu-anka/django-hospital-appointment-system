@@ -65,16 +65,55 @@ class SigninForm(forms.ModelForm):
 		self.fields['patient_date_of_birth'] = forms.DateField(initial=datetime.date.today)
 		self.fields['password_of_patient'] = forms.CharField(max_length=25)
 
-class GetAppointmentForm(forms.ModelForm):
+class ChooseCityForm(forms.Form):
+	
+	def __init__(self,*args,**kwargs):
+		super(ChooseCityForm, self).__init__(*args,**kwargs)
+		self.fields['city_name'] = forms.ModelChoiceField(queryset=City.objects.annotate())
+		self.fields['city_name'].widget.attrs.update({'class':'form-control'})
 
-	class Meta:
-		model=Appointments
-		"""fields=[
-										'dr_of_appointment','date_of_appointment',
-										'begin_time_of_appointment',
-									]"""
-		exclude=[]
+class ChooseCountyForm(forms.Form):
+	
+	def __init__(self,*args,**kwargs):
+		city = kwargs.pop('city')
+		counties = County.objects.filter(city_of_county = city)
+		super(ChooseCountyForm, self).__init__(*args,**kwargs)
+		self.fields['county_name'] = forms.ModelChoiceField(queryset=counties.annotate())
+		self.fields['county_name'].widget.attrs.update({'class':'form-control'})
+
+class ChooseHospitalForm(forms.Form):
+	
+	def __init__(self,*args,**kwargs):
+		county = kwargs.pop('county')
+		hospitals = Hospitals.objects.filter(county_of_hospital = county)
+		super(ChooseHospitalForm, self).__init__(*args,**kwargs)
+		self.fields['hospital_name'] = forms.ModelChoiceField(queryset=hospitals.annotate())
+		self.fields['hospital_name'].widget.attrs.update({'class':'form-control'})
+
+
+class ChoosePolyclinicForm(forms.Form):
+	
+	def __init__(self,*args,**kwargs):
+		hospital = kwargs.pop('hospital')
+		polyclinics = Polyclinics.objects.filter(hospital_of_polyclinic = hospital)
+		super(ChoosePolyclinicForm, self).__init__(*args,**kwargs)
+		self.fields['polyclinic_name'] = forms.ModelChoiceField(queryset=polyclinics.annotate())
+		self.fields['polyclinic_name'].widget.attrs.update({'class':'form-control'})
+
+
+class ChooseDrForm(forms.Form):
+	
+	def __init__(self,*args,**kwargs):
+		polyclinic = kwargs.pop('polyclinic')
+		doctors = Doctors.objects.filter(polyclinic_of_doctor = polyclinic)
+		super(ChooseDrForm, self).__init__(*args,**kwargs)
+		self.fields['dr_name'] = forms.ModelChoiceField(queryset=doctors.annotate())
+		self.fields['dr_name'].widget.attrs.update({'class':'form-control'})
+
+
+class GetAppointmentForm(forms.Form):
 
 	def __init__(self,*args,**kwargs):
 		super(GetAppointmentForm,self).__init__(*args,**kwargs)
-		self.fields['choose_city']=forms.ModelChoiceField(queryset=City.objects.annotate())
+		self.fields['date_of_appointment'] = forms.DateField(initial=datetime.date.today,label="Randevu Tarihi")
+		self.fields['begin_time_of_appointment'] = forms.TimeField(widget=forms.TimeInput(format='%H:%M'),label="Randevu Saati",initial=datetime.datetime.now().strftime('%H:%M:%S'))

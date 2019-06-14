@@ -21,7 +21,7 @@
 				<h3 class="name">{{ patient.patient_name }} {{ patient.patient_surname }}</h3>
 			</div>
 			<ul class="options">
-				<li><button class="randevu" onclick="window.location.href={% url 'randevu:get_appointment' %}">Randevu Al</button></li>
+				<li><button class="randevu" onclick="window.location.href={% url 'randevu:choose_city' %}">Randevu Al</button></li>
 				<li><button class="history" data-toggle="modal" data-target="#myHistory">Randevu Geçmişi</button>
 					<div class="modal fade" id="myHistory" role="dialog">
 						<div class="modal-dialog modal-lg">

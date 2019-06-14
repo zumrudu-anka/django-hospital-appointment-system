@@ -12,25 +12,22 @@
 <body>
 {% if user.is_authenticated %}
 	<div class="container">
-		<h1 style="text-align: center;color: orange;font-weight: bold">{{patient.patient_name}} {{patient.patient_surname}}</h1>
-		<h1 style="text-align: center;">Lütfen Şehir Seçimi Yapınız</h1><br>
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{city.city_name}}</h1>
+		<h1 style="text-align: center;">Lütfen İlçe Seçimi Yapınız</h1><br>
 		<form style="text-align: center" action="" method="POST">{% csrf_token %}
 			<div style="text-align: center;">
 				<br>
-		    	{{form.city_name}}
+		    	{{form.county_name}}
 				<br>
 			</div>
 		    <input type="submit" value="İleri" class = "btn btn-dark" style="width: 100px;">
 		</form>
 	</div>
-  
 {% else %}
   <div style=" margin-top: 15%">
           <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
           <input style="margin-right: 44%" onclick="window.location.href='{% url 'randevu:homepage' %}'" type="button" class="btn btn-danger randevu" value="Giriş Yapmak İçin Tıklayın">
-
   </div>
-
 {% endif %}
 </body>
 </html> 

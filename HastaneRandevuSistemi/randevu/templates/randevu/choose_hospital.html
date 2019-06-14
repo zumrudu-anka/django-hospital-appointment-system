@@ -12,12 +12,12 @@
 <body>
 {% if user.is_authenticated %}
 	<div class="container">
-		<h1 style="text-align: center;color: orange;font-weight: bold">{{patient.patient_name}} {{patient.patient_surname}}</h1>
-		<h1 style="text-align: center;">Lütfen Şehir Seçimi Yapınız</h1><br>
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{county.county_name}}</h1>
+		<h1 style="text-align: center;">Lütfen Hastane Seçimi Yapınız</h1><br>
 		<form style="text-align: center" action="" method="POST">{% csrf_token %}
 			<div style="text-align: center;">
 				<br>
-		    	{{form.city_name}}
+		    	{{form.hospital_name}}
 				<br>
 			</div>
 		    <input type="submit" value="İleri" class = "btn btn-dark" style="width: 100px;">

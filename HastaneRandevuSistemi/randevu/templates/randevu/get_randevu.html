@@ -11,10 +11,19 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-<form method="POST"> {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" class="btn btn-danger kaydet" id="kaydet" value="Kaydet">
-</form>
+	<div class="container">
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{city.city_name}}</h1>
+		<h1 style="text-align: center;">Lütfen İlçe Seçimi Yapınız</h1><br>
+		<form style="text-align: center" action="" method="POST">{% csrf_token %}
+			<div style="text-align: center;">
+				<br>
+		    	{{form.as_p}}
+				<br>
+			</div>
+		    <input type="submit" value="İleri" class = "btn btn-dark" style="width: 100px;">
+		</form>
+	</div>
+  
 {% else %}
   <div style=" margin-top: 15%">
           <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
