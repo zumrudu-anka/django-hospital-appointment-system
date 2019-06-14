@@ -108,7 +108,6 @@ def get_appointment(request,doctor_tc):
 	if form.is_valid():
 		date=form.cleaned_data.get('date_of_appointment')
 		dr=Doctors.objects.get(dr_tc_no=doctor_tc)
-		print(dr)
 		patient=Patients.objects.get(patient_tc_no=request.user.username)
 		begin_time=form.cleaned_data.get('begin_time_of_appointment')
 		Appointments.objects.create(date_of_appointment=date,
