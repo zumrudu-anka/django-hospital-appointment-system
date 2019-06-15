@@ -63,7 +63,7 @@ class Hospitals(models.Model):
 	hospital_address=models.TextField(max_length=200,verbose_name='Adres')
 	
 	def __str__(self):
-		return '{} - {} - {}'.format(self.hospital_name,self.begin_time,self.end_time)
+		return '{}'.format(self.hospital_name)
 
 	def clean(self):
 		try:
@@ -82,7 +82,7 @@ class Polyclinics(models.Model):
 	polyclinic_name=models.CharField(max_length=50,verbose_name='Poliklinik Adı')
 
 	def __str__(self):
-		return '{} - {}'.format(self.hospital_of_polyclinic,self.polyclinic_name)
+		return '{}'.format(self.polyclinic_name)
 
 	def clean(self):
 		try:
@@ -108,9 +108,7 @@ class Doctors(models.Model):
 	gender_of_dr=models.CharField(max_length=5,verbose_name='Cinsiyet',choices=Genders)
 	
 	def __str__(self):
-		return '{} - {} - {} - {} - {}'.format(self.polyclinic_of_doctor.hospital_of_polyclinic.hospital_name,
-											   self.polyclinic_of_doctor.polyclinic_name,
-											   self.dr_name,self.dr_surname,self.gender_of_dr)
+		return 'Uzmanlık Alanı: {} - {} {} - Cinsiyet: {}'.format(self.expertise_of_dr,self.dr_name,self.dr_surname,self.gender_of_dr)
 
 	def clean(self):
 		try:

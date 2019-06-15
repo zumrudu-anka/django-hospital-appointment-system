@@ -12,15 +12,24 @@
 <body>
 {% if user.is_authenticated %}
 	<div class="container">
-		<h1 style="text-align: center;color: orange;font-weight: bold">{{city.city_name}}</h1>
-		<h1 style="text-align: center;">Lütfen İlçe Seçimi Yapınız</h1><br>
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{patient.patient_name}} {{patient.patient_surname}}</h1>
+		<h1 style="text-align: center;">Lütfen Randevu İçin Tarih ve Saat Belirleyiniz</h1><br>
+		<h4 style="text-align: left;color: #35041c;font-weight: bold">{{city.city_name}} / {{county.county_name}} / {{hospital.hospital_name}} / {{polyclinic.polyclinic_name}} / {{dr.dr_name}} {{dr.dr_surname}}</h1>
 		<form style="text-align: center" action="" method="POST">{% csrf_token %}
 			<div style="text-align: center;">
 				<br>
-		    	{{form.as_p}}
+				<div style="font-weight: bold">
+					Randevu Tarihi:
+		    		<input type="date" name="date_of_appointment" style="text-align: center;border: solid;width: 25%;font-weight: bold">
+				</div>
+				<br>
+		    	<div style="font-weight: bold">
+		    		Randevu &nbspSaati:
+		    		<input type="time" name="begin_time_of_appointment" min="08:00" max="17:00" value="08:00" style="text-align: center;border: solid;width: 25%;font-weight: bold">
+		    	</div>
 				<br>
 			</div>
-		    <input type="submit" value="İleri" class = "btn btn-dark" style="width: 100px;">
+		    <input type="submit" value="Randevu Oluştur" class = "btn btn-dark" style="width: 200px;">
 		</form>
 	</div>
   

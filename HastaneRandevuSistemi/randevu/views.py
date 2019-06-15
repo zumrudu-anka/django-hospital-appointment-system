@@ -72,39 +72,55 @@ def choose_city_view(request):
 	return render(request,'randevu/choose_city.html',{'form':form,'patient':patient})
 
 def choose_county_view(request, city_id):
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
 	city=City.objects.get(id=city_id)
 	form = ChooseCountyForm(request.POST or None, city=city)
 	if form.is_valid():
 		county=form.cleaned_data.get('county_name')
 		return redirect('randevu:choose_hospital',county_id=county.id)
-	return render(request,'randevu/choose_county.html',{'form':form,'city':city})
+	return render(request,'randevu/choose_county.html',{'form':form,'city':city,'patient':patient})
 
 def choose_hospital_view(request,county_id):
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
 	county = County.objects.get(id=county_id)
+	city = City.objects.get(id=county.city_of_county.id)
 	form = ChooseHospitalForm(request.POST or None, county=county)
 	if form.is_valid():
 		hospital = form.cleaned_data.get('hospital_name')
 		return redirect('randevu:choose_polyclinic',hospital_id=hospital.id)
-	return render(request,'randevu/choose_hospital.html',{'form':form,'county':county})
+	return render(request,'randevu/choose_hospital.html',{'form':form,'county':county,'city':city,'patient':patient})
 
 def choose_polyclinic_view(request,hospital_id):
 	hospital=Hospitals.objects.get(id=hospital_id)
+	county = County.objects.get(id=hospital.county_of_hospital.id)
+	city = City.objects.get(id=hospital.county_of_hospital.city_of_county.id)
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
 	form=ChoosePolyclinicForm(request.POST or None,hospital=hospital)
 	if form.is_valid():
 		polyclinic = form.cleaned_data.get('polyclinic_name')
 		return redirect('randevu:choose_doctor',polyclinic_id=polyclinic.id)
-	return render(request,'randevu/choose_polyclinic.html',{'form':form,'hospital':hospital})
+	return render(request,'randevu/choose_polyclinic.html',{'form':form,'hospital':hospital,'county':county,'city':city,'patient':patient})
 
 def choose_dr_view(request,polyclinic_id):
 	polyclinic=Polyclinics.objects.get(id=polyclinic_id)
+	hospital = Hospitals.objects.get(id=polyclinic.hospital_of_polyclinic.id)
+	county = County.objects.get(id=polyclinic.hospital_of_polyclinic.county_of_hospital.id)
+	city = City.objects.get(id=polyclinic.hospital_of_polyclinic.county_of_hospital.city_of_county.id)
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
 	form=ChooseDrForm(request.POST or None,polyclinic=polyclinic)
 	if form.is_valid():
 		dr=form.cleaned_data.get('dr_name')
 		return redirect('randevu:get_appointment',doctor_tc=dr.dr_tc_no)
-	return render(request,'randevu/choose_doctor.html',{'form':form,'polyclinic':polyclinic})
+	return render(request,'randevu/choose_doctor.html',{'form':form,'polyclinic':polyclinic,'hospital':hospital,'county':county,'city':city,'patient':patient})
 
 def get_appointment(request,doctor_tc):
 	form=GetAppointmentForm(request.POST or None)
+	patient = Patients.objects.get(patient_tc_no=request.user.username)
+	dr=Doctors.objects.get(dr_tc_no=doctor_tc)
+	polyclinic = Polyclinics.objects.get(id=dr.polyclinic_of_doctor.id)
+	hospital = Hospitals.objects.get(id=dr.polyclinic_of_doctor.hospital_of_polyclinic.id)
+	county = County.objects.get(id=dr.polyclinic_of_doctor.hospital_of_polyclinic.county_of_hospital.id)
+	city = City.objects.get(id=dr.polyclinic_of_doctor.hospital_of_polyclinic.county_of_hospital.city_of_county.id)
 	if form.is_valid():
 		date=form.cleaned_data.get('date_of_appointment')
 		dr=Doctors.objects.get(dr_tc_no=doctor_tc)
@@ -114,7 +130,8 @@ def get_appointment(request,doctor_tc):
 									dr_of_appointment=dr,
 									patient_of_appointment=patient,
 									begin_time_of_appointment=begin_time)
+		messages.success(request,"Randevu Alma İşlemi Başarıyla Tamamlandı!")
 		return redirect('randevu:profilepage')
-	return render(request,'randevu/get_randevu.html',{'form':form})
+	return render(request,'randevu/get_randevu.html',{'form':form,'patient':patient,'polyclinic':polyclinic,'hospital':hospital,'county':county,'city':city,'dr':dr})
 
 

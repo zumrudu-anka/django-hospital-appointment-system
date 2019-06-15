@@ -12,8 +12,9 @@
 <body>
 {% if user.is_authenticated %}
 	<div class="container">
-		<h1 style="text-align: center;color: orange;font-weight: bold">{{county.county_name}}</h1>
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{patient.patient_name}} {{patient.patient_surname}}</h1>
 		<h1 style="text-align: center;">Lütfen Hastane Seçimi Yapınız</h1><br>
+		<h4 style="text-align: left;color: #35041c;font-weight: bold">{{city.city_name}} / {{county.county_name}}</h4>
 		<form style="text-align: center" action="" method="POST">{% csrf_token %}
 			<div style="text-align: center;">
 				<br>
