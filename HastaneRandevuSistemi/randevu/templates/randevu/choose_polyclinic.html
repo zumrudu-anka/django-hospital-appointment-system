@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="UTF-8" lang='tr'>
-	<title>Ana Ekran</title>
+	<title>Poliklinik Seçimi</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -24,14 +24,11 @@
 		    <input type="submit" value="İleri" class = "btn btn-dark" style="width: 100px;">
 		</form>
 	</div>
-  
 {% else %}
-  <div style=" margin-top: 15%">
-          <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
-          <input style="margin-right: 44%" onclick="window.location.href='{% url 'randevu:homepage' %}'" type="button" class="btn btn-danger randevu" value="Giriş Yapmak İçin Tıklayın">
-
-  </div>
-
+	<div style=" margin-top: 15%">
+	    <h1 style="text-align: center;">Randevu Almak İçin Giriş Yapmalısınız</h1>
+	    <input style="margin-right: 44%" onclick="window.location.href='{% url 'randevu:homepage' %}'" type="button" class="btn btn-danger randevu" value="Giriş Yapmak İçin Tıklayın">
+	</div>
 {% endif %}
 </body>
-</html> 
+</html>
