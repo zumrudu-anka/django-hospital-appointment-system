@@ -133,5 +133,3 @@ def get_appointment(request,doctor_tc):
 		messages.success(request,"Randevu Alma İşlemi Başarıyla Tamamlandı!")
 		return redirect('randevu:profilepage')
 	return render(request,'randevu/get_randevu.html',{'form':form,'patient':patient,'polyclinic':polyclinic,'hospital':hospital,'county':county,'city':city,'dr':dr})
-
-

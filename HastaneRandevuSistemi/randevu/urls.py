@@ -15,4 +15,3 @@ urlpatterns=[
 	path('<int:polyclinic_id>/choose_doctor/',choose_dr_view,name='choose_doctor'),
 	path('<int:doctor_tc>/get_appointment/',get_appointment,name='get_appointment'),
 ]
-

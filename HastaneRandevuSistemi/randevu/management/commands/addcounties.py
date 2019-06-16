@@ -3,7 +3,7 @@ from randevu.models import City,County
 import json
 
 class Command(BaseCommand):
-	def handle(self,*args,**kwarg):
+	def handle(self,*args,**kwargs):
 		with open('randevu/static/js/ilceler.json') as file2:
 			json_data2=json.load(file2)
 		for i in range(1,82):
