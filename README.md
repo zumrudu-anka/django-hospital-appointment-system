@@ -2,7 +2,7 @@
 
 Öncelikle projeyi yerel çalışma alanınıza kopyalayın:
 
-`git clone https://github.com/zumrudu-anka/Hospital_Appointment_System.git`
+`git clone https://github.com/zumrudu-anka/django-hospital-appointment-system.git`
 
 Bu repoyu kopyaladığınıza göre yerel çalışma alanınızda Python ve Django yüklü olduğunu varsayıyorum.
 
