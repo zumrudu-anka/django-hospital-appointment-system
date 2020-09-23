@@ -1,4 +1,4 @@
-# gitHub-finder
+# Hospital Appointment System
 🏥 📅 💻 Hospital Appointment System With Django
 
 ### Installation
