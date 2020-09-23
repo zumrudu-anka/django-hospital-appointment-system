@@ -25,3 +25,10 @@
 
 - run `python manage.py runserver`
 - Go to main page and create new patient to login the system.
+
+#### [Python Anywhere](http://zumruduanka.pythonanywhere.com/):
+
+- You can create user with sign up form.
+- You can login
+- You can change your password
+- You can add appointment, but only from Erzurum / Yakutiye.
