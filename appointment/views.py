@@ -65,6 +65,7 @@ def sign_up(request):
 			email = form.cleaned_data.get("email")
 		)
 		user.set_password(form.cleaned_data.get("password"))
+		user.save()
 		patient.user = user
 		patient.save()
 		return redirect("appointment:index")

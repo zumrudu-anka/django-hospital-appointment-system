@@ -6,4 +6,3 @@ db.sqlite3
 /static
 .DS_Store
 todo.txt
-README.md
