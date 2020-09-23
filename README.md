@@ -1,6 +1,10 @@
 # Hospital Appointment System
 🏥 📅 💻 Hospital Appointment System With Django
 
+<p align = "center">
+  <img src = "https://github.com/zumrudu-anka/django-hospital-appointment-system/blob/master/presentation/djangoHospitalAppointmentSystem.gif">
+</p>
+
 ### Installation
 
 - Clone this repo to your local machine using `https://github.com/zumrudu-anka/django-hospital-appointment-system.git`
