@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Sign Up</title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<link rel="stylesheet" href="{% static 'css/sign-up.css' %}">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+		<script src="{% static 'js/jquery.inputmask.bundle.js' %}"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Appointment System Sign Up Form</h1>
+			<div class="sign-up">
+				<form method="POST"> {% csrf_token %}
+					{{ form.as_p }}
+					<input class="kaydol-button"  type="submit" value="Sign Up" >
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

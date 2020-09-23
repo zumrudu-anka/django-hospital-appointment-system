@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8" lang='tr'>
+	<title>Make an Appointment</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+	<link rel="stylesheet" href="{% static 'css/sign-in.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+	<div class="container">
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{user.first_name}} {{user.last_name}}</h1>
+		<h1 style="text-align: center;">Choose Date & Time</h1><br>
+		<h4 style="text-align: left;color: #35041c;font-weight: bold">{{doctor.polyclinic.hospital.county.city.name}} / {{doctor.polyclinic.hospital.county.name}} / {{doctor.polyclinic.hospital.name}} / {{doctor.polyclinic.name}} / {{doctor.first_name}} {{doctor.last_name}}</h1>
+		<form style="text-align: center" action="" method="POST">{% csrf_token %}
+			<div style="text-align: center;">
+				<br>
+				<div style="font-weight: bold">
+					Appointment Date:
+		    		<input type="date" id="date" name="date" style="text-align: center;border: solid;width: 25%;font-weight: bold">
+				</div>
+				<br>
+		    	<div style="font-weight: bold">
+		    		Appointment Time:
+		    		<input type="time" name="time" min="08:00" max="17:00" value="08:00" style="text-align: center;border: solid;width: 25%;font-weight: bold">
+		    	</div>
+				<br>
+			</div>
+		    <input type="submit" value="Make Appointment" class = "btn btn-dark" style="width: 200px;">
+		</form>
+	</div>
+{% else %}
+  <div style=" margin-top: 15%">
+          <h1 style="text-align: center;">You must be logged in</h1>
+          <input style="margin-right: 44%" onclick="window.location.href='{% url 'appointment:index' %}'" type="button" class="btn btn-danger appointment" value="Click to Login">
+  </div>
+{% endif %}
+<script>
+	let today = new Date();
+	let dd = String(today.getDate()).padStart(2,'0');
+	let mm = String(today.getMonth() + 1).padStart(2, '0');
+	let yyyy = today.getFullYear();
+	today = yyyy + "-" + mm + "-" + dd;
+	document.getElementById("date").value = today;
+</script>
+</body>
+</html>

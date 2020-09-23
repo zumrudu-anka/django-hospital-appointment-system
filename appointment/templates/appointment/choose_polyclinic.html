@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8" lang='tr'>
+	<title>Polyclinic Choice</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Laila" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+	<link rel="stylesheet" href="{% static 'css/sign-in.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+	<div class="container">
+		<h1 style="text-align: center;color: orange;font-weight: bold">{{user.first_name}} {{user.last_name}}</h1>
+		<h1 style="text-align: center;">Choose Polyclinic</h1><br>
+		<h4 style="text-align: left;color: #35041c;font-weight: bold">{{hospital.county.city.name}} / {{hospital.county.name}} / {{hospital.name}}</h4>
+		<form style="text-align: center" action="" method="POST">{% csrf_token %}
+			<div style="text-align: center;">
+				<br>
+				{{form.polyclinic}}
+				{% if form.polyclinic.field.queryset.count == 0 %}
+					<p style="color: red; font-weight: bold;margin-top: 15px;">
+						This hospital has not any polyclinic. You can add a polyclinic by going to the <a href="{% url 'admin:index'  %}">admin</a> panel.
+					</p>
+				{% endif %}
+				<br>
+			</div>
+			<a href="{% url 'appointment:choose_hospital' hospital.county.pk %}" class="btn btn-dark" style="width: 100px;">Back</a>
+		    <input type="submit" value="Next" class = "btn btn-dark" style="width: 100px;">
+			<br>
+			<a href="{% url 'appointment:profile' %}" class="btn btn-dark" style="width: 200px; margin-top: 25px;">Homepage</a>
+		</form>
+	</div>
+{% else %}
+	<div style=" margin-top: 15%">
+	    <h1 style="text-align: center;">You must be logged in</h1>
+	    <input style="margin-right: 44%" onclick="window.location.href='{% url 'appointment:index' %}'" type="button" class="btn btn-danger appointment" value="Click to Login">
+	</div>
+{% endif %}
+</body>
+</html>
