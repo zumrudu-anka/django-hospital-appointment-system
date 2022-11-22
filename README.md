@@ -2,7 +2,7 @@
 🏥 📅 💻 Hospital Appointment System With Django
 
 <p align = "center">
-  <img src = "https://github.com/zumrudu-anka/django-hospital-appointment-system/blob/master/presentation/djangoHospitalAppointmentSystem.gif">
+  <img src = "./presentation/djangoHospitalAppointmentSystem.gif">
 </p>
 
 ### Installation
